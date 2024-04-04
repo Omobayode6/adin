@@ -1,0 +1,167 @@
+@import url('https://fonts.cdnfonts.com/css/meta-pro');
+
+@tailwind base; @tailwind components; @tailwind utilities; 
+
+
+html,body{
+  font-family: 'Meta Pro', sans-serif;
+} 
+
+/* html,
+body {
+  @apply font-metapro scroll-smooth;
+} */
+.paddingX{
+  @apply px-[5%];
+}
+input{
+  @apply bg-white;
+}
+
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* no scrollbar */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+/* Input type number will not have increase or decrease arrow */
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0; 
+}
+
+/* no increase and decrease arrow in input type number for verification code boxes */
+.spin-button-none::-webkit-outer-spin-button,
+.spin-button-none::-webkit-inner-spin-button {
+  appearance: none;
+}
+
+
+
+/**
+* This is a variable font
+* You can controll variable axes as shown below:
+* font-variation-settings: 'wght' 900.0;
+*
+* available axes:
+
+* 'wght' (range from 300.0 to 900.0)
+
+**/
+/* @font-face {
+  font-family: "Meta Pro";
+  src: 
+    url("./assets/fonts/FFMetaProBook.TTF") format("truetype");
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: "Meta Pro";
+  src: 
+    url("./assets/fonts/FFMetaProBookIt.TTF") format("truetype");
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: italic;
+} */
+
+/* @font-face {
+  font-family: "Meta Pro";
+  src: 
+    url("./assets/fonts/FFMetaProLight.TTF") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Meta Pro";
+  src: 
+    url("./assets/fonts/FFMetaProLightIt.TTF") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Meta Pro";
+  src: 
+    url("./assets/fonts/FFMetaProRegular.TTF") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Meta Pro";
+  src: 
+    url("./assets/fonts//FFMetaProRegIt.TTF") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Meta Pro";
+  src: 
+    url("./assets/fonts/FFMetaProMedium.TTF") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Meta Pro";
+  src: 
+    url("./assets/fonts/FFMetaProMedIt.TTF") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Meta Pro";
+  src: 
+    url("./assets/fonts/FFMetaProBold.TTF") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Meta Pro";
+  src: 
+    url("./assets/fonts/FFMetaProBoldIt.TTF") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Meta Pro";
+  src: 
+    url("./assets/fonts/FFMetaProBlk.TTF") format("truetype");
+  font-weight: 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Meta Pro";
+  src: 
+    url("./assets/fonts/FFMetaProBlkIt.TTF") format("truetype");
+  font-weight: 900;
+  font-display: swap;
+  font-style: italic;
+} */
