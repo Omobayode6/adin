@@ -11,19 +11,10 @@ import EmptyState from "../reusable/EmptyState";
 import { useAssignCourse } from "../../hooks/mutate";
 
 
-const InstructorsTable = ({ courseId, instructors }: any) => {
-  const [check, setCheck] = useState<any>([])
-  const{mutate, isPending} = useAssignCourse()
-
-  const assignInstructor = async(instructorId:any) => {
-    mutate({
-      courseId: courseId,
-      instructorId: instructorId,
-    })
-  }
+const UserInstructorsTable = ({ instructors }: any) => {
 
   return (
-    <div className="px-8">
+    <div className="">
       {instructors?.length === 0 ? (
         <EmptyState
           img={
@@ -38,17 +29,12 @@ const InstructorsTable = ({ courseId, instructors }: any) => {
       ) : (
         <>
           <div className="w-full mx-auto overflow-x-auto">
-            <table className="min-w-full bg-white">
-              <thead className="font-normal">
+            <table className="min-w-full bg-[#F3F8F8] rounded-[16px]">
+              <thead className="font-normal ">
                 <tr className="">
                   <th className="py-4 px-4 font-normal">
                     <div className="flex gap-2 text-left">
                       <p>Name</p>
-                    </div>
-                  </th>
-                  <th className="py-4 px-4 font-normal">
-                    <div className="flex gap-2 text-left">
-                      <p>Email</p>
                     </div>
                   </th>
                   <th className="min-w-[145px]  py-2 px-4 font-normal">
@@ -58,45 +44,44 @@ const InstructorsTable = ({ courseId, instructors }: any) => {
                   </th>
                   <th className="py-4 px-4 font-normal">
                     <div className="flex gap-2 text-left">
+                      <p>Email</p>
+                    </div>
+                  </th>
+                  <th className="py-4 px-4 font-normal">
+                    <div className="flex gap-2 text-left">
                       <p>Department</p>
                     </div>
                   </th>
                   <th className="py-4 px-4 font-normal">
                     <div className="flex gap-2 text-left">
-                      <p>Action</p>
+                      <p>Assigned Courses</p>
                     </div>
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 bg-white text-sm">
+              <tbody className="divide-y divide-gray-200 text-sm">
                 {instructors?.map((instructor: any, index: number) => {
                   return (
                     <tr
                       key={index}
                       className={`${
-                        index % 2 === 0 ? "bg-[#E5E7EB]" : "bg-white"
+                        index % 2 === 0 ? "bg-[#FCFCFC]" : "bg-[#FCFCFC]"
                       }`}
                     >
                       <td className="px-4 py-4 whitespace-nowrap text-left">
                         {instructor?.fullName}
                       </td>
-                      <td className="px-4 py-4 whitespace-nowrap font-medium">
-                        {instructor?.email}
-                      </td>
                       <td className="px-4 py-4 whitespace-nowrap">
                         {instructor?.phoneNumber}
+                      </td>
+                      <td className="px-4 py-4 whitespace-nowrap font-medium">
+                        {instructor?.email}
                       </td>
                       <td className="px-4 py-4 whitespace-nowrap">
                         {instructor?.department}
                       </td>
                       <td className="px-4 py-4 whitespace-nowrap">
-                        <div className="w-full h-full flex justify-center items-center my-auto">
-                          <button className="flex items-center rounded-[16px] text-primary border border-primary px-[20px] py-[4px] "
-                            onClick={()=> {assignInstructor(instructor?.id); setCheck([...check, instructor?.id])}}
-                          >
-                            {check.includes(instructor?.id) ? <Check className="inline text-primary"/> : <Plus className="inline text-primary"/>} Assign
-                          </button>
-                        </div>
+                        {instructor?.totalCourse}
                       </td>
                     </tr>
                   );
@@ -110,4 +95,4 @@ const InstructorsTable = ({ courseId, instructors }: any) => {
   );
 };
 
-export default InstructorsTable;
+export default UserInstructorsTable;

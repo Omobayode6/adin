@@ -3,13 +3,18 @@ import { Bell, Bird, ChevronDown, Plus, Search } from 'lucide-react';
 import book from '../../assets/icons/book.svg'
 import file from '../../assets/icons/file.svg'
 import EmptyState from '../../components/reusable/EmptyState';
-import { useCourses } from '../../hooks/query';
+import { useCourses, useDepartments, useLevels } from '../../hooks/query';
 import CourseCard from '../../components/courseManagement/CourseCard';
 import dummyUser from '../../assets/images/dummy-user.png'
+import { InvalidateQueryFilters, useQueryClient } from '@tanstack/react-query';
 
 const CourseManagement = () => {
+  const queryClient = useQueryClient()
   const [menu, setMenu] = useState<any>(0)  
-  const {data:courses} = useCourses()
+  const [departmentId, setDepartmentId] = useState(0)
+  const {data:coursesData} = useCourses(menu, departmentId)
+  const {data:levels} = useLevels()
+  const {data:departments, isPending:departmentIsPending} = useDepartments()
 
   return (
     <div className='ml-[63px] md:ml-[217px] mb-8 px-4 pb-10'>
@@ -59,7 +64,7 @@ const CourseManagement = () => {
         <div className='flex items-center justify-between w-[321px] h-[132px] border border-[#E5E7EB] rounded-[16px] px-4 py-6 '>
           <div>
             <p className='text-[#697077] text-sm leading-[32px] '>Total Courses</p>
-            <p className='text-[#008688] text-[28px] font-bold leading-[32px] '>32</p>
+            <p className='text-[#008688] text-[28px] font-bold leading-[32px] '>{coursesData?.totalCOurse}</p>
           </div>
           <div className='w-[54px] h-[54px] rounded-[10px] bg-[#D7E8E5] p-2 '>
           <img src={book} alt="book" className='w-[40px] h-[40px]'/>
@@ -69,7 +74,7 @@ const CourseManagement = () => {
         <div className='flex items-center justify-between w-[321px] h-[132px] border border-[#E5E7EB] rounded-[16px] px-4 py-6 '>
           <div>
             <p className='text-[#697077] text-sm leading-[32px] '>Ongoing Courses</p>
-            <p className='text-[#008688] text-[28px] font-bold leading-[32px] '>4</p>
+            <p className='text-[#008688] text-[28px] font-bold leading-[32px] '>{coursesData?.ongoingCOurse}</p>
           </div>
           <div className='w-[54px] h-[54px] rounded-[10px] bg-[#D7E8E5] p-2 '>
           <img src={file} alt="book" className='w-[40px] h-[40px]'/>
@@ -79,7 +84,7 @@ const CourseManagement = () => {
         <div className='flex items-center justify-between w-[321px] h-[132px] border border-[#E5E7EB] rounded-[16px] px-4 py-6 '>
           <div>
             <p className='text-[#697077] text-sm leading-[32px] '>Published</p>
-            <p className='text-[#008688] text-[28px] font-bold leading-[32px] '>32</p>
+            <p className='text-[#008688] text-[28px] font-bold leading-[32px] '>{coursesData?.publishedCOurse}</p>
           </div>
           <div className='w-[54px] h-[54px] rounded-[10px] bg-[#D7E8E5] p-2 '>
           <img src={file} alt="book" className='w-[40px] h-[40px]'/>
@@ -90,40 +95,63 @@ const CourseManagement = () => {
       <div className='mt-10 '>
         <div className='flex justify-between items-center mb-8'>
           <p className='text-[24px] font-semibold leading-[36px] '>All Courses</p>
-          <button className="flex gap-2 items-center justify-center border h-10 rounded-md px-2">
-            <span className="text-[#838383]">All Department</span>
-            <ChevronDown className='inline'/>
-          </button>
+          <select
+              className="w-[174px] h-10 px-2 bg-white rounded-[7px] border border-zinc-500 text-[#838383] outline-none focus-within text-base font-normal leading-normal focus:bg-white disabled:opacity-75 disabled:hover:cursor-not-allowed mb-4"
+              value={departmentId}
+              onChange={(e) => {
+                setDepartmentId(Number(e.target.value));
+                queryClient.invalidateQueries(["courses", menu, Number(e.target.value)] as InvalidateQueryFilters)
+              }}
+            ><option value={0}>All Department</option>
+              {departments?.map((country: any) => (
+                <option key={country.id} value={country.id}>
+                  {country.name}
+                </option>
+              ))}
+              {departmentIsPending && <option value="">loading...</option>}
+            </select>
         </div>
 
         {/* courses */}
         <div className='h-fit grid grid-cols-[150px_auto] gap-x-4 overflow-x-auto no-scrollbar'>
           <div className='border-r border-[#E5E7EB] '>
             <ul className="w-full flex flex-col text-xs md:text-sm lg:text-base gap-4 md:gap-8 overflow-y-visible overflow-x-auto overflow-hidden no-scrollbar">
-              {menuBar.map(({level, label}:any) => (
+              <li
+                className={`flex justify-between items-center text-[18px] text-[#374151] font-semibold px-[18px] py-[10px] cursor-pointer transition flex-shrink-0 ${
+                  menu === 0
+                    ? " bg-[#F3F8F8] rounded-[16px]"
+                    : ""
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMenu(0);
+                  queryClient.invalidateQueries(["courses", 0, departmentId] as InvalidateQueryFilters)
+                }}
+              >
+                All 
+              </li>
+              {levels?.map(({id, name}:any) => (
                 <li
-                  key={level}
+                  key={id}
                   className={`flex justify-between items-center text-[18px] text-[#374151] font-semibold px-[18px] py-[10px] cursor-pointer transition flex-shrink-0 ${
-                    menu === level
-                      ? " bg-[#F3F8F8] rounded-[16px] "
+                    menu === id
+                      ? " bg-[#F3F8F8] rounded-[16px]"
                       : ""
                   }`}
                   onClick={(e) => {
                     e.preventDefault();
-                    setMenu(level);
+                    setMenu(id);
+                    queryClient.invalidateQueries(["courses", id, departmentId] as InvalidateQueryFilters)
                   }}
                 >
-                  {label} 
+                  {name} 
                 </li>
                 // <span className='bg-[#E5E7EB] rounded-[8px] p-[8px] '>11</span>
               ))}
             </ul>
           </div>
           {/* Assets display */}
-          {courses?.filter(
-                  (item: { semesterId: string }) =>
-                    menu === 0 || item.semesterId === menu
-                )?.length === 0 ? (
+          {coursesData?.courses?.length === 0 ? (
             <EmptyState
               img={
                 <Bird
@@ -135,21 +163,15 @@ const CourseManagement = () => {
               text={`Oops! It seems that you don't have any courses here`}
             />
           ) : (
-            <div className="mt-5 grid lg:grid-cols-3 gap-4 w-full">
-              {courses?.filter(
-              (item: { semesterId: string }) =>
-                menu === 0 || item.semesterId === menu
-            )
-            .map((course: any, index: number) => (
+            <div className="mt-5 grid lg:grid-cols-2 xl:grid-cols-3 gap-4 w-full">
+              {coursesData?.courses?.map((course: any, index: number) => (
                   <div key={index} className="w-fit">
                     <CourseCard course={course} />
                   </div>
                 ))}
             </div>
           )}
-
         </div>
-
       </div>
     </div>
   )

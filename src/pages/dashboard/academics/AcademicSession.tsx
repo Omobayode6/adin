@@ -8,7 +8,6 @@ import CourseCard from '../../../components/courseManagement/CourseCard';
 
 const AcademicSession = () => {
   const [menu, setMenu] = useState<any>(100)  
-  const {data:courses} = useCourses()
 
   return (
     <div className='ml-[63px] md:ml-[287px] mb-8 pt-[70px] px-[2%] pb-10'>
