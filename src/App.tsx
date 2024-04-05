@@ -13,6 +13,7 @@ import CourseManagement from "./pages/dashboard/CourseManagement";
 import UserManagement from "./pages/dashboard/UserManagement";
 import Helps from "./pages/dashboard/Helps";
 import Settings from "./pages/dashboard/Settings";
+import Home from "./pages/auth/Home";
 
 
 const App: React.FC = () => {
@@ -20,6 +21,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+      <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<AdminDashboardLayout />}>
           <Route path="/admin/dashboard" element={<Dashboard />} />
