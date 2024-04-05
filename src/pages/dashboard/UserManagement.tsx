@@ -5,7 +5,7 @@ import dummyUser from '../../assets/images/dummy-user.png'
 
 const UserManagement = () => {
   return (
-    <div className='ml-[63px] md:ml-[287px] mb-8 pt-[70px] px-[2%] pb-10'>
+    <div className='ml-[63px] md:ml-[217px] mb-8 px-4 pb-10'>
       {/* header */}
       <div className='py-8 border-b border-borderColor'>
         <div className='flex justify-between items-center gap-x-4'>
@@ -34,7 +34,7 @@ const UserManagement = () => {
         </div>
       </div>
 
-      <div className='flex items-center justify-between mb-4 mt-[70px]'>
+      <div className='flex items-center justify-between mb-4 mt-[50px]'>
         <h2 className='font-semibold text-[28px] leading-[44px] text-[#0E1F1D] '>Instructor's Management</h2>
         <button className='text-[#F3F4F6] text-[20px] font-bold leading-[24px] bg-[#008688] rounded-[16px] px-[28px] py-[20px] '><Plus className='inline'/> Add Instructor</button>
       </div>
