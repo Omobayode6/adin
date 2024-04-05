@@ -15,9 +15,9 @@ const CourseManagement = () => {
     <div className='ml-[63px] md:ml-[217px] mb-8 px-4 pb-10'>
       {/* header */}
       <div className='py-8 border-b border-borderColor'>
-        <div className='flex justify-between items-center'>
+        <div className='flex justify-between items-center gap-x-4'>
           {/* search */}
-          <div className='ml-[20%] relative'>
+          <div className='ml-[15%] relative'>
             <input type="text" name="search"
               className=' bg-[#F1F5F9] rounded-[16px] outline-none px-6 py-2 max-w-[520px] lg:w-[520px]'
             />
@@ -35,13 +35,10 @@ const CourseManagement = () => {
               <div>
                 <p className='text-base text-[#0E1919] font-bold '>Soji Olaiya</p>
                 <p className='text-faintText text-[12px] '>College of Medicine</p>
-              </div>
-          
+              </div>          
             </div>
-
           </div>
         </div>
-
       </div>
       <div className='flex items-center justify-between mb-6 pt-[70px] '>
         <h2 className='font-semibold text-[28px] leading-[44px] text-[#0E1F1D] '>Course Management</h2>
